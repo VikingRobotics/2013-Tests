@@ -31,6 +31,7 @@ public class RobotMain extends IterativeRobot {
     double i;
     double d;
     double f;
+    //feed forward constant
     double setPoint;
     Joystick joy1;
     Joystick joy2;
@@ -50,12 +51,14 @@ public class RobotMain extends IterativeRobot {
         magEnc = new Encoder(5, 6);
         motorEnc.setDistancePerPulse(.0027777777);
         magEnc.setDistancePerPulse(.0027777777);
+        //                            1/360
         motorEnc.start();
         magEnc.start();
         motorEnc.reset();
         magEnc.reset();
         motorEnc.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         magEnc.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
+        //sets what measurements the encoder sends to the PID controller
         
         //magEnc = new AnalogChannel(1);
         
@@ -100,6 +103,7 @@ public class RobotMain extends IterativeRobot {
         SmartDashboard.putNumber("p", p);
         SmartDashboard.putNumber("i", i);
         
+        //enable PID check
        if(PIDToggle.isToggled() && !motorToggle.isToggled()){
             if(!pid.isEnable()){
                 pid.enable();
@@ -110,7 +114,10 @@ public class RobotMain extends IterativeRobot {
                 pid.disable();
                 SmartDashboard.putString("PID State", "disabled");
             }
+            
         }
+       //end enable PID check
+       //enable manual control check
         if(motorToggle.isToggled() && !PIDToggle.isToggled()){
             motor.set(joy1.getY());
             SmartDashboard.putString("Motor Control State","enabled");
@@ -123,6 +130,7 @@ public class RobotMain extends IterativeRobot {
         
         
     }
+    //end enable manual control check
     
     /**
      * This function is called periodically during test mode
