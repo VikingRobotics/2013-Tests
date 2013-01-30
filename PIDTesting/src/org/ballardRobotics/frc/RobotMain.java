@@ -50,8 +50,9 @@ public class RobotMain extends IterativeRobot {
         motorEnc = new Encoder(3, 4);
         magEnc = new Encoder(5, 6);
         motorEnc.setDistancePerPulse(.0027777777);
-        magEnc.setDistancePerPulse(.0027777777);
         //                            1/360
+        magEnc.setDistancePerPulse(.0009765625);
+        //                            1/1024
         motorEnc.start();
         magEnc.start();
         motorEnc.reset();
